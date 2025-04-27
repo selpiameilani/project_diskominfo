@@ -1,0 +1,82 @@
+name: Smartcitty
+description: "A new Flutter project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.6.1 <4.0.0'  # Menggunakan rentang versi yang direkomendasikan
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  webview_flutter: ^4.4.4
+  webview_flutter_android: ^3.12.1
+  webview_flutter_wkwebview: ^3.12.0
+  url_launcher: ^6.3.1
+  google_maps_flutter: ^2.0.6  # Diupdate ke versi yang lebih baru
+  flutter_map: ^6.0.1
+  latlong2: ^0.9.1
+  geolocator: ^10.0.0
+  geocoding: ^2.1.0
+  intl: ^0.18.0
+  cupertino_icons: ^1.0.2  # Ditambahkan ^ untuk memastikan kompatibilitas
+  html: ^0.15.5
+  flutter_map_cancellable_tile_provider: ^2.0.0
+  flutter_html: ^3.0.0
+  # Untuk mendukung lokasi dan peta
+  permission_handler: ^11.0.0  # Pengelolaan izin
+  image: ^4.1.3  # Untuk manipulasi gambar marker
+  flutter_svg: ^2.0.9  # Untuk rendering SVG icons
+  cached_network_image: ^3.3.0  # Caching gambar
+  font_awesome_flutter: ^10.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/Lambang_Kota_Sukabumi.png
+    - assets/Icon_BPJS.png
+    - assets/Icon_RSUD.png
+    - assets/Icon_mochi.png
+    - assets/Icon_Lapor.png
+    - assets/Icon_LPSE.jpg
+    - assets/Icon_dpmptsp.jpg
+    - assets/Icon_satudata.png
+    - assets/Icon_PPID.png
+    - assets/Icon_spbe.png
+    - assets/Icon_jdih.png
+    - assets/bacground.png
+    - assets/Icon_sapawarga.png
+    - assets/Icon_cermati.png
+    - assets/Icon_tokop.jpg
+    - assets/Icon_blibli.webp
+    - assets/Icon_jidhprov.png
+    - assets/Icon_KAI.jpg
+    - assets/Icon_oss.png
+    - assets/Icon_satusehat.jpg
+    - assets/Icon_pemda.png
+    - assets/Icon_diskom.png
+    - assets/Icon_pdam.png
+    - assets/Icon_wakil.png
+    - assets/Icon_wali.png
+    - assets/Icon_pln.png
+    - assets/slide1.png
+    - assets/slide2.png
+    - assets/Icon_dekena.png
+    - assets/Icon_jdihnasio.png
+    - assets/icon_satunasio.png
+    - assets/Icon_nusputt.png
+    - assets/Icon_Itenas.png
+    
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/Icon_Kota_Sukabumi.png"
