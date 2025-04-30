@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:async'; // Add this for Timer
-import 'package:intl/intl.dart'; // Import untuk format tanggal
-import 'detail_news.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart'; // Add this import
 import 'detail_beranda.dart';
-
-// Import your footer widget
 import 'footer.dart';
+import 'pengumuman_news.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,10 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, String>> _news = [];
-  bool _isLoading = true;
-  String _error = '';
-
   // Weather data
   bool _isLoadingWeather = true;
   String _temperature = "29°C";
@@ -32,15 +26,30 @@ class _HomeScreenState extends State<HomeScreen> {
   // Image slider variables
   late PageController _pageController;
   int _currentPage = 0;
-  final List<String> _imageList = [
-    'assets/slide1.png',
-    'assets/slide2.png',
+  final List<Map<String, dynamic>> _sliderItems = [
+    {
+      'image': 'assets/slide1.png',
+      'url': 'https://disdukcapil.sukabumikota.go.id/',
+      'title': 'Disdukcapil Kota Sukabumi',
+    },
+    {
+      'image': 'assets/slide2.png',
+      'url': 'https://dinkes.sukabumikota.go.id/',
+      'title': 'Dinkes Kota Sukabumi',
+    },
   ];
+
+  // Daftar pengumuman
+  final Map<String, dynamic> _pengumuman = {
+    'title':
+        'Pengumuman Hasil Asesmen Kompetensi Selter JPTP Sekretariat Daerah',
+    'date': '2024-05-20T11:45:00',
+    'image': 'assets/Icon_pengumuman.jpg',
+  };
 
   @override
   void initState() {
     super.initState();
-    fetchNews();
     fetchWeather();
 
     // Initialize PageController for image slider
@@ -48,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Set up timer for auto-sliding images
     Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < _imageList.length - 1) {
+      if (_currentPage < _sliderItems.length - 1) {
         _currentPage++;
       } else {
         _currentPage = 0;
@@ -70,117 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  // Format tanggal dari WordPress API
-  String formatDate(String dateString) {
-    try {
-      final DateTime dateTime = DateTime.parse(dateString);
-      final DateFormat formatter = DateFormat('dd MMMM yyyy', 'id_ID');
-      return formatter.format(dateTime);
-    } catch (e) {
-      return dateString; // Kembalikan string asli jika format gagal
-    }
-  }
-
-  // Menghapus tag HTML dari konten
-  String stripHtmlTags(String htmlString) {
-    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-    return htmlString.replaceAll(exp, '');
-  }
-
-  Future<void> fetchNews() async {
-    setState(() {
-      _isLoading = true;
-      _error = '';
-    });
-
-    try {
-      final response = await http.get(
-        Uri.parse(
-            'https://portal.sukabumikota.go.id/wp-json/wp/v2/posts?per_page=5&_embed'),
-        headers: {
-          'User-Agent': 'Mozilla/5.0',
-          'Accept': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(response.body);
-        List<Map<String, String>> newsList = [];
-
-        for (var item in data) {
-          // Ekstrak gambar dengan penanganan error yang lebih baik
-          String imageUrl = '';
-          try {
-            if (item['_embedded'] != null &&
-                item['_embedded']['wp:featuredmedia'] != null &&
-                item['_embedded']['wp:featuredmedia'].isNotEmpty &&
-                item['_embedded']['wp:featuredmedia'][0]['source_url'] !=
-                    null) {
-              imageUrl = item['_embedded']['wp:featuredmedia'][0]['source_url'];
-            } else if (item['_embedded'] != null &&
-                item['_embedded']['wp:featuredmedia'] != null &&
-                item['_embedded']['wp:featuredmedia'].isNotEmpty &&
-                item['_embedded']['wp:featuredmedia'][0]['media_details'] !=
-                    null &&
-                item['_embedded']['wp:featuredmedia'][0]['media_details']
-                        ['sizes'] !=
-                    null &&
-                item['_embedded']['wp:featuredmedia'][0]['media_details']
-                        ['sizes']['medium'] !=
-                    null) {
-              imageUrl = item['_embedded']['wp:featuredmedia'][0]
-                  ['media_details']['sizes']['medium']['source_url'];
-            }
-          } catch (e) {
-            print('Error mendapatkan gambar: $e');
-          }
-
-          // Ekstrak dan bersihkan konten dengan penanganan error yang lebih baik
-          String content = '';
-          try {
-            if (item['content'] != null &&
-                item['content']['rendered'] != null) {
-              content = stripHtmlTags(item['content']['rendered']);
-            }
-          } catch (e) {
-            print('Error mendapatkan konten: $e');
-            content = "Konten tidak tersedia";
-          }
-
-          // Ekstrak dan format tanggal
-          String date = '';
-          try {
-            if (item['date'] != null) {
-              date = formatDate(item['date']);
-            }
-          } catch (e) {
-            print('Error format tanggal: $e');
-            date = "Tanggal tidak tersedia";
-          }
-
-          newsList.add({
-            "title": item['title']?['rendered'] ?? "Tidak ada judul",
-            "date": date,
-            "content": content,
-            "imageUrl": imageUrl,
-          });
-        }
-
-        setState(() {
-          _news = newsList;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _error = 'Gagal memuat data berita: ${response.statusCode}';
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _error = 'Terjadi kesalahan saat memuat berita: $e';
-        _isLoading = false;
-      });
+  // Replace WebView with direct URL launcher
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
     }
   }
 
@@ -205,19 +108,16 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         } else {
           setState(() {
-            _error = 'Data cuaca tidak lengkap';
             _isLoadingWeather = false;
           });
         }
       } else {
         setState(() {
-          _error = 'Gagal memuat data cuaca: ${response.statusCode}';
           _isLoadingWeather = false;
         });
       }
     } catch (e) {
       setState(() {
-        _error = 'Error fetching weather: $e';
         _isLoadingWeather = false;
       });
     }
@@ -269,7 +169,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   IconData _getWeatherIcon(String weatherDescription) {
-    // Get current time to determine if it's day or night
     final now = DateTime.now();
     final hour = now.hour;
     final isDay = hour >= 6 && hour < 18;
@@ -325,23 +224,32 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Format tanggal ke format Indonesia
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      final formatter = DateFormat('dd MMMM yyyy', 'id_ID');
+      return formatter.format(date);
+    } catch (e) {
+      return "Tanggal tidak valid";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          await fetchNews();
           await fetchWeather();
         },
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            // Welcome Bar with proper status bar padding
+            // Welcome Bar
             Container(
               width: double.infinity,
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top +
-                    16, // Add status bar height
+                top: MediaQuery.of(context).padding.top + 16,
                 left: 16,
                 right: 16,
                 bottom: 16,
@@ -360,9 +268,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Selamat Datang di Sukabumi Smart City",
+                          "Selamat Datang di Portal Smart City Kota Sukabumi",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -371,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Dapatkan informasi terkini seputar Kota Sukabumi.",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 10,
                             color: Colors.white,
                           ),
                         ),
@@ -389,11 +297,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Image Slider (Left side - takes 60% of width)
+                  // Image Slider
                   Expanded(
                     flex: 6,
                     child: Container(
-                      height: 120, // Increased height to avoid cropping
+                      height: 120,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -409,18 +317,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(12),
                         child: PageView.builder(
                           controller: _pageController,
-                          itemCount: _imageList.length,
+                          itemCount: _sliderItems.length,
                           onPageChanged: (int page) {
                             setState(() {
                               _currentPage = page;
                             });
                           },
                           itemBuilder: (context, index) {
-                            return Image.asset(
-                              _imageList[index],
-                              fit: BoxFit
-                                  .contain, // Changed from cover to contain
-                              alignment: Alignment.center,
+                            return InkWell(
+                              onTap: () =>
+                                  _launchURL(_sliderItems[index]['url']),
+                              child: Image.asset(
+                                _sliderItems[index]['image'],
+                                fit: BoxFit.contain,
+                                alignment: Alignment.center,
+                              ),
                             );
                           },
                         ),
@@ -428,13 +339,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  const SizedBox(width: 8), // Space between slider and weather
+                  const SizedBox(width: 8),
 
-                  // Weather Card (Right side - takes 40% of width)
+                  // Weather Card
                   Expanded(
                     flex: 4,
                     child: Container(
-                      height: 120, // Match the slider height
+                      height: 120,
                       child: _buildWeatherCard(),
                     ),
                   ),
@@ -453,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 10),
 
-            // Layanan Publik dan "Lihat Semua" - Sesuai dengan gambar
+            // Layanan Publik dan "Lihat Semua"
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
@@ -482,165 +393,121 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // Grid Layanan - Sesuai dengan gambar
-            LayananGridWidget(),
+            // Grid Layanan
+            LayananGridWidget(launchURL: _launchURL),
 
-            // Tambahkan ruang lebih banyak di bawah grid layanan
-            const SizedBox(height: 45),
+            const SizedBox(height: 16),
 
-            // Berita Kota Header dengan spacing yang diperbaiki
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, bottom: 6.0, top: 10.0),
-              child: Text(
-                'Berita Kota',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            // Bagian Pengumuman
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Pengumuman',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
 
-            if (_isLoading)
-              const Center(child: CircularProgressIndicator())
-            else if (_error.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+            // Pengumuman dengan navigasi ke halaman detail
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: _buildPengumumanCard(_pengumuman),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Footer
+            const Footer(),
+
+            const SizedBox(height: 60),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Widget untuk kartu pengumuman yang bisa diklik
+  Widget _buildPengumumanCard(Map<String, dynamic> pengumuman) {
+    return InkWell(
+      onTap: () {
+        // Navigate to the announcement detail page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AnnouncementPage(pengumuman: pengumuman),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Gambar pengumuman
+            ClipRRect(
+              borderRadius:
+                  const BorderRadius.horizontal(left: Radius.circular(8)),
+              child: Image.asset(
+                pengumuman['image'],
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
+              ),
+            ),
+            // Konten pengumuman
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(_error),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: fetchNews,
-                      child: const Text('Coba Lagi'),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(120, 36),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                    Text(
+                      pengumuman['title'],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.calendar_today,
+                          size: 12,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          _formatDate(pengumuman['date']),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              )
-            else if (_news.isEmpty)
-              const Center(child: Text('Tidak ada berita'))
-            else
-              ..._news.map((newsItem) {
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailNewsScreen(
-                            title: newsItem['title']!,
-                            date: newsItem['date']!,
-                            content: newsItem['content']!,
-                            imageUrl: newsItem['imageUrl']!,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Gambar Berita dengan penanganan error yang lebih baik
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: newsItem['imageUrl']!.isNotEmpty
-                                ? Image.network(
-                                    newsItem['imageUrl']!,
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Container(
-                                        width: 80,
-                                        height: 80,
-                                        color: const Color.fromRGBO(255, 252, 252, 1),
-                                        child: const Center(
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        width: 80,
-                                        height: 80,
-                                        color: const Color.fromRGBO(255, 253, 253, 1),
-                                        child: const Icon(
-                                          Icons.image_not_supported,
-                                          color: Color.fromRGBO(255, 255, 255, 1),
-                                          size: 30,
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : Container(
-                                    width: 80,
-                                    height: 80,
-                                    color: const Color.fromRGBO(255, 254, 254, 1),
-                                    child: const Icon(
-                                      Icons.article,
-                                      color: Color.fromRGBO(255, 255, 255, 1),
-                                      size: 30,
-                                    ),
-                                  ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  newsItem['title']!,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  newsItem['date']!,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  newsItem['content']!,
-                                  style: const TextStyle(fontSize: 12),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-
-            // Add small space before the footer
-            const SizedBox(height: 20),
-
-            // Add the Footer component here
-            const Footer(),
-
-            // Tambahkan padding di bagian bawah untuk menghindari overlapping dengan bottom navigation
-            const SizedBox(height: 60),
+              ),
+            ),
           ],
         ),
       ),
@@ -650,7 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Build page indicator dots
   List<Widget> _buildPageIndicator() {
     List<Widget> indicators = [];
-    for (int i = 0; i < _imageList.length; i++) {
+    for (int i = 0; i < _sliderItems.length; i++) {
       indicators.add(
         Container(
           width: 8,
@@ -660,8 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BoxShape.circle,
             color: _currentPage == i
                 ? const Color(0xFF1565C0)
-                : const Color(
-                    0xFFCCCCCC), // Changed to a light gray color for better visibility
+                : const Color(0xFFCCCCCC),
           ),
         ),
       );
@@ -671,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildWeatherCard() {
     return Container(
-      height: 120, // Match slider height
+      height: 120,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: const Color(0xFF1565C0),
@@ -785,51 +651,10 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class LayananGridWidget extends StatelessWidget {
-  LayananGridWidget({Key? key}) : super(key: key);
+  final Function(String) launchURL;
 
-  final List<Map<String, dynamic>> layananList = [
-    {
-      'label': 'Portal Sukabumi',
-      'image': 'assets/Lambang_Kota_Sukabumi.png',
-      'url':
-          'https://portal.sukabumikota.go.id/category/berita-kota/pendidikan/'
-    },
-    {
-      'label': 'Sapawarga',
-      'image': 'assets/Icon_sapawarga.png',
-      'url': 'https://jabarprov.go.id/sapawarga',
-    },
-    {
-      'label': 'Lapor',
-      'image': 'assets/Icon_Lapor.png',
-      'url': 'https://www.lapor.go.id/'
-    },
-    {
-      'label': 'Moci legit',
-      'image': 'assets/Icon_mochi.png',
-      'url': 'https://mocilegit.sukabumikota.go.id/',
-    },
-    {
-      'label': 'PPID',
-      'image': 'assets/Icon_PPID.png',
-      'url': 'https://ppid.sukabumikota.go.id/',
-    },
-    {
-     'label': 'Satu Sehat',
-      'image': 'assets/Icon_satusehat.jpg',
-      'url': 'https://satusehat.kemkes.go.id/sdmk',
-    },
-    {
-      'label': 'LPSE',
-      'image': 'assets/Icon_LPSE.jpg',
-      'url': 'http://lpse.jabarprov.go.id/'
-    },
-    {
-      'label': 'DPMPTSP',
-      'image': 'assets/Icon_dpmptsp.jpg',
-      'url': 'https://dpmptsp.sukabumikota.go.id/',
-    },
-  ];
+  const LayananGridWidget({Key? key, required this.launchURL})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -839,6 +664,51 @@ class LayananGridWidget extends StatelessWidget {
     // Menghitung ukuran item berdasarkan lebar layar
     final itemWidth = (screenWidth - 32 - 15) /
         4; // 32 untuk padding horizontal, 15 untuk spacing
+
+    // Daftar layanan dengan URL dan label
+    final List<Map<String, dynamic>> layananList = [
+      {
+        'label': 'Portal Sukabumi',
+        'image': 'assets/Lambang_Kota_Sukabumi.png',
+        'url':
+            'https://portal.sukabumikota.go.id/category/berita-kota/pendidikan/'
+      },
+      {
+        'label': 'Sapawarga',
+        'image': 'assets/Icon_sapawarga.png',
+        'url': 'https://jabarprov.go.id/sapawarga',
+      },
+      {
+        'label': 'Lapor',
+        'image': 'assets/Icon_Lapor.png',
+        'url': 'https://www.lapor.go.id/'
+      },
+      {
+        'label': 'Moci legit',
+        'image': 'assets/Icon_mochi.png',
+        'url': 'https://mocilegit.sukabumikota.go.id/',
+      },
+      {
+        'label': 'PPID',
+        'image': 'assets/Icon_PPID.png',
+        'url': 'https://ppid.sukabumikota.go.id/',
+      },
+      {
+        'label': 'Satu Sehat',
+        'image': 'assets/Icon_satusehat.jpg',
+        'url': 'https://satusehat.kemkes.go.id/sdmk',
+      },
+      {
+        'label': 'LPSE',
+        'image': 'assets/Icon_LPSE.jpg',
+        'url': 'http://lpse.jabarprov.go.id/'
+      },
+      {
+        'label': 'DPMPTSP',
+        'image': 'assets/Icon_dpmptsp.jpg',
+        'url': 'https://dpmptsp.sukabumikota.go.id/',
+      },
+    ];
 
     return Container(
       // Tinggi container ditingkatkan untuk memastikan ada ruang cukup untuk baris kedua
@@ -856,23 +726,9 @@ class LayananGridWidget extends StatelessWidget {
         itemCount: layananList.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () async {
-              final url = layananList[index]['url'];
-              if (url != null) {
-                try {
-                  final Uri uri = Uri.parse(url);
-                  if (!await launchUrl(uri,
-                      mode: LaunchMode.externalApplication)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Tidak dapat membuka $url')),
-                    );
-                  }
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: $e')),
-                  );
-                }
-              }
+            onTap: () {
+              // Launch URL directly in external browser
+              launchURL(layananList[index]['url']!);
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,

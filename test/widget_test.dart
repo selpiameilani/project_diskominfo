@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Smartcitty/main.dart';
+import 'package:smartcitty/main.dart';
 
 void main() {
   runApp(const MyApp() as Widget);
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Sukabumi\nSmartCity',
+                'Sukabumi\nsmartCity',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,

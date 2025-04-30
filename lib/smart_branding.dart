@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailBeranda extends StatefulWidget {
-  const DetailBeranda({super.key});
+class SmartBranding extends StatefulWidget {
+  const SmartBranding({super.key});
 
   static const List<Map<String, dynamic>> allServices = [
-    {
-      'label': 'BPJS',
-      'image': 'assets/Icon_BPJS.png',
-      'url': 'https://www.bpjs-kesehatan.go.id/',
-      'smart': 'Pusat'
-    },
-    {
-      'label': 'Lapor',
-      'image': 'assets/Icon_Lapor.png',
-      'url': 'https://www.lapor.go.id/',
-      'smart': 'Pusat'
-    },
     {
       'label': 'LPSE',
       'image': 'assets/Icon_LPSE.jpg',
@@ -63,59 +51,24 @@ class DetailBeranda extends StatefulWidget {
       'url': 'https://jdih.sukabumikota.go.id/',
     },
     {
-      'label': 'Sapawarga',
-      'image': 'assets/Icon_sapawarga.png',
-      'url': 'https://jabarprov.go.id/sapawarga',
-    },
-    {
-      'label': 'OSS',
-      'image': 'assets/Icon_oss.png',
-      'url': 'https://oss.go.id/',
-    },
-    {
-      'label': 'KAI',
-      'image': 'assets/Icon_KAI.jpg',
-      'url': 'https://www.kai.id//',
-    },
-    {
-      'label': 'Satu Sehat',
-      'image': 'assets/Icon_satusehat.jpg',
-      'url': 'https://satusehat.kemkes.go.id/sdmk',
-    },
-    {
-      'label': 'JDIH Nasional',
-      'image': 'assets/Icon_jdihnasio.png',
-      'url': 'https://jdihn.go.id/',
-    },
-    {
-      'label': 'Satu Data Nasional',
-      'image': 'assets/icon_satunasio.png',
-      'url': '  https://data.go.id/',
-    },
-    {
       'label': 'Dekranasda Kota Sukabumi',
       'image': 'assets/Icon_dekena.png',
       'url': 'https://sikanda.sukabumikota.go.id/',
     },
-    {
-      'label': 'JDIH Provinsi',
-      'image': 'assets/Icon_jidhprov.png',
-      'url': 'https://jdih.jabarprov.go.id/',
-    },
   ];
 
   @override
-  State<DetailBeranda> createState() => _DetailBerandaState();
+  State<SmartBranding> createState() => _smartBrandingState();
 }
 
-class _DetailBerandaState extends State<DetailBeranda> {
+class _smartBrandingState extends State<SmartBranding> {
   late List<Map<String, dynamic>> filteredServices;
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredServices = DetailBeranda.allServices;
+    filteredServices = SmartBranding.allServices;
     searchController.addListener(_filterServices);
   }
 
@@ -129,9 +82,9 @@ class _DetailBerandaState extends State<DetailBeranda> {
     final query = searchController.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        filteredServices = DetailBeranda.allServices;
+        filteredServices = SmartBranding.allServices;
       } else {
-        filteredServices = DetailBeranda.allServices
+        filteredServices = SmartBranding.allServices
             .where((service) =>
                 service['label'].toString().toLowerCase().contains(query))
             .toList();
@@ -151,7 +104,7 @@ class _DetailBerandaState extends State<DetailBeranda> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Semua Layanan")),
+      appBar: AppBar(title: const Text("Layanan Kota")),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -199,7 +152,7 @@ class _DetailBerandaState extends State<DetailBeranda> {
                 child: GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     childAspectRatio: 1,

@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CategoryProvScreen extends StatefulWidget {
-  const CategoryProvScreen({super.key});
+class SmartGovernance extends StatefulWidget {
+  const SmartGovernance({super.key});
 
   static const List<Map<String, dynamic>> allServices = [
     {
-      'label': 'Sapawarga',
-      'image': 'assets/Icon_sapawarga.png',
-      'url': 'https://jabarprov.go.id/sapawarga',
+      'label': 'BPJS',
+      'image': 'assets/Icon_BPJS.png',
+      'url': 'https://www.bpjs-kesehatan.go.id/',
     },
-     {
-      'label': 'JDIH Provinsi',
-      'image': 'assets/Icon_jidhprov.png',
-      'url': 'https://jdih.jabarprov.go.id/',
+    {
+      'label': 'Lapor',
+      'image': 'assets/Icon_Lapor.png',
+      'url': 'https://www.lapor.go.id/',
     },
   ];
 
   @override
-  State<CategoryProvScreen> createState() => _CategoryProvScreenState();
+  State<SmartGovernance> createState() => _SmartGovernanceState();
 }
 
-class _CategoryProvScreenState extends State<CategoryProvScreen> {
+class _SmartGovernanceState extends State<SmartGovernance> {
   late List<Map<String, dynamic>> filteredServices;
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredServices = CategoryProvScreen.allServices;
+    filteredServices = SmartGovernance.allServices;
     searchController.addListener(_filterServices);
   }
 
@@ -42,10 +42,11 @@ class _CategoryProvScreenState extends State<CategoryProvScreen> {
     final query = searchController.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        filteredServices = CategoryProvScreen.allServices;
+        filteredServices = SmartGovernance.allServices;
       } else {
-        filteredServices = CategoryProvScreen.allServices
-            .where((service) => service['label'].toString().toLowerCase().contains(query))
+        filteredServices = SmartGovernance.allServices
+            .where((service) =>
+                service['label'].toString().toLowerCase().contains(query))
             .toList();
       }
     });
@@ -63,7 +64,7 @@ class _CategoryProvScreenState extends State<CategoryProvScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Layanan Provinsi")),
+      appBar: AppBar(title: const Text("Smart Governance")),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -73,30 +74,30 @@ class _CategoryProvScreenState extends State<CategoryProvScreen> {
         ),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Cari layanan...',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: searchController.text.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            searchController.clear();
-                          },
-                        )
-                      : null,
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: TextField(
+            //     controller: searchController,
+            //     decoration: InputDecoration(
+            //       hintText: 'Cari layanan...',
+            //       filled: true,
+            //       fillColor: Colors.white,
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(12),
+            //         borderSide: BorderSide.none,
+            //       ),
+            //       prefixIcon: const Icon(Icons.search),
+            //       suffixIcon: searchController.text.isNotEmpty
+            //           ? IconButton(
+            //               icon: const Icon(Icons.clear),
+            //               onPressed: () {
+            //                 searchController.clear();
+            //               },
+            //             )
+            //           : null,
+            //     ),
+            //   ),
+            // ),
             if (filteredServices.isEmpty)
               const Expanded(
                 child: Center(
@@ -139,7 +140,8 @@ class _CategoryProvScreenState extends State<CategoryProvScreen> {
                           const SizedBox(height: 4),
                           Text(
                             item['label']!,
-                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
                         ],

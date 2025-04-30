@@ -80,7 +80,7 @@ class MorePage extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const MorePetaPage()), // Pastikan nama kelas benar
+                    MaterialPageRoute(builder: (_) => const LokasiPage()), // Pastikan nama kelas benar
                   );
                 },
               ),

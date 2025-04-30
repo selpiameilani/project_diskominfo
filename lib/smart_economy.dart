@@ -1,75 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CategoryKotaScreen extends StatefulWidget {
-  const CategoryKotaScreen({super.key});
+class Smarteconomy extends StatefulWidget {
+  const Smarteconomy({super.key});
 
   static const List<Map<String, dynamic>> allServices = [
     {
-      'label': 'LPSE',
-      'image': 'assets/Icon_LPSE.jpg',
-      'url': 'http://lpse.jabarprov.go.id/',
+      'label': 'Sapawarga',
+      'image': 'assets/Icon_sapawarga.png',
+      'url': 'https://jabarprov.go.id/sapawarga',
     },
     {
-      'label': 'RSUD Syamsudin',
-      'image': 'assets/Icon_RSUD.png',
-      'url': 'https://online.rsudsyamsudin.co.id/',
-    },
-    {
-      'label': 'Moci legit',
-      'image': 'assets/Icon_mochi.png',
-      'url': 'https://mocilegit.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Portal Sukabumi',
-      'image': 'assets/Lambang_Kota_Sukabumi.png',
-      'url':
-          'https://portal.sukabumikota.go.id/category/berita-kota/pendidikan/',
-    },
-    {
-      'label': 'DPMPTSP',
-      'image': 'assets/Icon_dpmptsp.jpg',
-      'url': 'https://dpmptsp.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Satu Data',
-      'image': 'assets/Icon_satudata.png',
-      'url': 'https://satudata.sukabumikota.go.id/',
-    },
-    {
-      'label': 'PPID',
-      'image': 'assets/Icon_PPID.png',
-      'url': 'https://ppid.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Simpan SPBE',
-      'image': 'assets/Icon_spbe.png',
-      'url': 'https://simpan-spbe.sukabumikota.go.id/',
-    },
-    {
-      'label': 'JDIH Kota Sukabumi',
-      'image': 'assets/Icon_jdih.png',
-      'url': 'https://jdih.sukabumikota.go.id/',
-    },
-       {
-      'label': 'Dekranasda Kota Sukabumi',
-      'image': 'assets/Icon_dekena.png',
-      'url': 'https://sikanda.sukabumikota.go.id/',
+      'label': 'JDIH Provinsi',
+      'image': 'assets/Icon_jidhprov.png',
+      'url': 'https://jdih.jabarprov.go.id/',
     },
   ];
 
   @override
-  State<CategoryKotaScreen> createState() => _CategoryKotaScreenState();
+  State<Smarteconomy> createState() => _SmarteconomyState();
 }
 
-class _CategoryKotaScreenState extends State<CategoryKotaScreen> {
+class _SmarteconomyState extends State<Smarteconomy> {
   late List<Map<String, dynamic>> filteredServices;
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredServices = CategoryKotaScreen.allServices;
+    filteredServices = Smarteconomy.allServices;
     searchController.addListener(_filterServices);
   }
 
@@ -83,9 +42,9 @@ class _CategoryKotaScreenState extends State<CategoryKotaScreen> {
     final query = searchController.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        filteredServices = CategoryKotaScreen.allServices;
+        filteredServices = Smarteconomy.allServices;
       } else {
-        filteredServices = CategoryKotaScreen.allServices
+        filteredServices = Smarteconomy.allServices
             .where((service) =>
                 service['label'].toString().toLowerCase().contains(query))
             .toList();
@@ -105,7 +64,7 @@ class _CategoryKotaScreenState extends State<CategoryKotaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Layanan Kota")),
+      appBar: AppBar(title: const Text("Layanan Provinsi")),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

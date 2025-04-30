@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Smartcitty/beranda.dart';
-import 'package:Smartcitty/category.dart'; // Quick dialog
-import 'package:Smartcitty/more.dart'; // More dialog
+import 'package:smartcitty/beranda.dart';
+import 'package:smartcitty/smart.dart'; // Quick dialog
+import 'package:smartcitty/more.dart'; // More dialog
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     if (index == 1) {
       showDialog(
         context: context,
-        builder: (_) => const CategoryPage(),
+        builder: (_) => const smartPage(),
       );
     } else if (index == 2) {
       showDialog(
@@ -140,9 +140,9 @@ class _HomePageState extends State<HomePage> {
           Positioned(
             bottom: 5,
             child: Text(
-              'Quick',
+              'smart',
               style: TextStyle(
-                color: _iconColor(1), // Warna biru
+                color: _iconColor(1),
                 fontSize: 10,
               ),
             ),

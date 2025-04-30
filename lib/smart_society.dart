@@ -1,71 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailBeranda extends StatefulWidget {
-  const DetailBeranda({super.key});
+class SmartSociety extends StatefulWidget {
+  const SmartSociety({super.key});
 
   static const List<Map<String, dynamic>> allServices = [
     {
       'label': 'BPJS',
       'image': 'assets/Icon_BPJS.png',
       'url': 'https://www.bpjs-kesehatan.go.id/',
-      'smart': 'Pusat'
     },
     {
       'label': 'Lapor',
       'image': 'assets/Icon_Lapor.png',
       'url': 'https://www.lapor.go.id/',
-      'smart': 'Pusat'
-    },
-    {
-      'label': 'LPSE',
-      'image': 'assets/Icon_LPSE.jpg',
-      'url': 'http://lpse.jabarprov.go.id/',
-    },
-    {
-      'label': 'RSUD Syamsudin',
-      'image': 'assets/Icon_RSUD.png',
-      'url': 'https://online.rsudsyamsudin.co.id/',
-    },
-    {
-      'label': 'Moci legit',
-      'image': 'assets/Icon_mochi.png',
-      'url': 'https://mocilegit.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Portal Sukabumi',
-      'image': 'assets/Lambang_Kota_Sukabumi.png',
-      'url': 'https://portal.sukabumikota.go.id/smart/berita-kota/pendidikan/',
-    },
-    {
-      'label': 'DPMPTSP',
-      'image': 'assets/Icon_dpmptsp.jpg',
-      'url': 'https://dpmptsp.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Satu Data',
-      'image': 'assets/Icon_satudata.png',
-      'url': 'https://satudata.sukabumikota.go.id/',
-    },
-    {
-      'label': 'PPID',
-      'image': 'assets/Icon_PPID.png',
-      'url': 'https://ppid.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Simpan SPBE',
-      'image': 'assets/Icon_spbe.png',
-      'url': 'https://simpan-spbe.sukabumikota.go.id/',
-    },
-    {
-      'label': 'JDIH Kota Sukabumi',
-      'image': 'assets/Icon_jdih.png',
-      'url': 'https://jdih.sukabumikota.go.id/',
-    },
-    {
-      'label': 'Sapawarga',
-      'image': 'assets/Icon_sapawarga.png',
-      'url': 'https://jabarprov.go.id/sapawarga',
     },
     {
       'label': 'OSS',
@@ -92,30 +40,20 @@ class DetailBeranda extends StatefulWidget {
       'image': 'assets/icon_satunasio.png',
       'url': '  https://data.go.id/',
     },
-    {
-      'label': 'Dekranasda Kota Sukabumi',
-      'image': 'assets/Icon_dekena.png',
-      'url': 'https://sikanda.sukabumikota.go.id/',
-    },
-    {
-      'label': 'JDIH Provinsi',
-      'image': 'assets/Icon_jidhprov.png',
-      'url': 'https://jdih.jabarprov.go.id/',
-    },
   ];
 
   @override
-  State<DetailBeranda> createState() => _DetailBerandaState();
+  State<SmartSociety> createState() => _SmartGovernanceState();
 }
 
-class _DetailBerandaState extends State<DetailBeranda> {
+class _SmartGovernanceState extends State<SmartSociety> {
   late List<Map<String, dynamic>> filteredServices;
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredServices = DetailBeranda.allServices;
+    filteredServices = SmartSociety.allServices;
     searchController.addListener(_filterServices);
   }
 
@@ -129,9 +67,9 @@ class _DetailBerandaState extends State<DetailBeranda> {
     final query = searchController.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        filteredServices = DetailBeranda.allServices;
+        filteredServices = SmartSociety.allServices;
       } else {
-        filteredServices = DetailBeranda.allServices
+        filteredServices = SmartSociety.allServices
             .where((service) =>
                 service['label'].toString().toLowerCase().contains(query))
             .toList();
@@ -151,7 +89,7 @@ class _DetailBerandaState extends State<DetailBeranda> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Semua Layanan")),
+      appBar: AppBar(title: const Text("Layanan Pusat")),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -199,7 +137,7 @@ class _DetailBerandaState extends State<DetailBeranda> {
                 child: GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     childAspectRatio: 1,

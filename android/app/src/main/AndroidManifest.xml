@@ -40,7 +40,7 @@
     </queries>
 
     <application
-        android:label="SmartCity"
+        android:label="smartCity"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -68,17 +68,17 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <smart android:name="android.intent.smart.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <smart android:name="android.intent.smart.DEFAULT" />
+                <smart android:name="android.intent.smart.BROWSABLE" />
                 <data android:scheme="sukabumismartcity" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <smart android:name="android.intent.smart.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>

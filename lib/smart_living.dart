@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CategoryPusatScreen extends StatefulWidget {
-  const CategoryPusatScreen({super.key});
+class SmartLiving extends StatefulWidget {
+  const SmartLiving({super.key});
 
   static const List<Map<String, dynamic>> allServices = [
     {
@@ -15,7 +15,7 @@ class CategoryPusatScreen extends StatefulWidget {
       'image': 'assets/Icon_Lapor.png',
       'url': 'https://www.lapor.go.id/',
     },
-     {
+    {
       'label': 'OSS',
       'image': 'assets/Icon_oss.png',
       'url': 'https://oss.go.id/',
@@ -30,12 +30,12 @@ class CategoryPusatScreen extends StatefulWidget {
       'image': 'assets/Icon_satusehat.jpg',
       'url': 'https://satusehat.kemkes.go.id/sdmk',
     },
-      {
+    {
       'label': 'JDIH Nasional',
       'image': 'assets/Icon_jdihnasio.png',
       'url': 'https://jdihn.go.id/',
     },
-       {
+    {
       'label': 'Satu Data Nasional',
       'image': 'assets/icon_satunasio.png',
       'url': '  https://data.go.id/',
@@ -43,17 +43,17 @@ class CategoryPusatScreen extends StatefulWidget {
   ];
 
   @override
-  State<CategoryPusatScreen> createState() => _CategoryPusatScreenState();
+  State<SmartLiving> createState() => _SmartGovernanceState();
 }
 
-class _CategoryPusatScreenState extends State<CategoryPusatScreen> {
+class _SmartGovernanceState extends State<SmartLiving> {
   late List<Map<String, dynamic>> filteredServices;
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredServices = CategoryPusatScreen.allServices;
+    filteredServices = SmartLiving.allServices;
     searchController.addListener(_filterServices);
   }
 
@@ -67,9 +67,9 @@ class _CategoryPusatScreenState extends State<CategoryPusatScreen> {
     final query = searchController.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        filteredServices = CategoryPusatScreen.allServices;
+        filteredServices = SmartLiving.allServices;
       } else {
-        filteredServices = CategoryPusatScreen.allServices
+        filteredServices = SmartLiving.allServices
             .where((service) =>
                 service['label'].toString().toLowerCase().contains(query))
             .toList();
