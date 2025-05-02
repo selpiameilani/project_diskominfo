@@ -38,9 +38,9 @@ class DetailBeranda extends StatefulWidget {
       'url': 'https://portal.sukabumikota.go.id/smart/berita-kota/pendidikan/',
     },
     {
-      'label': 'DPMPTSP',
-      'image': 'assets/Icon_dpmptsp.jpg',
-      'url': 'https://dpmptsp.sukabumikota.go.id/',
+      'label': 'Mall Pelayanan Publik',
+      'image': 'assets/Icon_mpp.png',
+      'url': 'https://mpp.sukabumikota.go.id/layanan',
     },
     {
       'label': 'Satu Data',

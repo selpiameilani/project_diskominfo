@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Selamat Datang di Portal Smart City Kota Sukabumi",
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 11,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Dapatkan informasi terkini seputar Kota Sukabumi.",
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 9,
                             color: Colors.white,
                           ),
                         ),
@@ -704,9 +704,9 @@ class LayananGridWidget extends StatelessWidget {
         'url': 'http://lpse.jabarprov.go.id/'
       },
       {
-        'label': 'DPMPTSP',
-        'image': 'assets/Icon_dpmptsp.jpg',
-        'url': 'https://dpmptsp.sukabumikota.go.id/',
+        'label': 'OSS',
+        'image': 'assets/Icon_oss.png',
+        'url': 'https://oss.go.id/',
       },
     ];
 

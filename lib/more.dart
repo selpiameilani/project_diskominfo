@@ -86,11 +86,6 @@ class MorePage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          IconButton(
-            icon: const Icon(Icons.close, color: Colors.red),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
         ],
       ),
     );

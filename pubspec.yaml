@@ -76,6 +76,14 @@ flutter:
     - assets/Icon_Itenas.png
     - assets/Icon_pengumuman.jpg
     - assets/ss.png
+    - assets/Icon_Almulk.webp
+    - assets/Icon_bpbd.png
+    - assets/Icon_dlh.png
+    - assets/Icon_Kabizza.png
+    - assets/Icon_simpony.webp
+    - assets/Icon_SK.png
+    - assets/Icon_culinery.webp
+    - assets/Icon_mpp.png
 
 flutter_icons:
   android: true

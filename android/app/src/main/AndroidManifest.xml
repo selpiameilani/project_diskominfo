@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Query aplikasi -->
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW"/>
@@ -66,29 +67,37 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
+
+            <!-- Launcher intent filter -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <smart android:name="android.intent.smart.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <!-- Deep link -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <smart android:name="android.intent.smart.DEFAULT" />
-                <smart android:name="android.intent.smart.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="sukabumismartcity" />
             </intent-filter>
+
+            <!-- Sharing intent -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <smart android:name="android.intent.smart.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
 
+        <!-- Service lokasi -->
         <service
             android:name=".LocationService"
             android:foregroundServiceType="location"
             android:enabled="true"
             android:exported="false" />
 
+        <!-- File provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -99,6 +108,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- Metadata Flutter -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
