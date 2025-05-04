@@ -84,6 +84,8 @@ flutter:
     - assets/Icon_SK.png
     - assets/Icon_culinery.webp
     - assets/Icon_mpp.png
+    - assets/Icon_open.png
+    - assets/Icon_jkn.webp
 
 flutter_icons:
   android: true

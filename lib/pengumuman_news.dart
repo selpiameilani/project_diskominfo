@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Halaman Detail Pengumuman yang Disempurnakan
 class AnnouncementPage extends StatelessWidget {
   final Map<String, dynamic> pengumuman;
-  
-  const AnnouncementPage({Key? key, required this.pengumuman}) : super(key: key);
+
+  const AnnouncementPage({Key? key, required this.pengumuman})
+      : super(key: key);
 
   // Fungsi untuk membuka URL
-  Future<void> _launchURL() async {
-    final Uri url = Uri.parse('https://portal.sukabumikota.go.id/category/pengumuman/');
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Tidak dapat membuka $url');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Format tanggal
-    String formattedDate = "";
-    try {
-      final date = DateTime.parse(pengumuman['date']);
-      final formatter = DateFormat('dd MMMM yyyy', 'id_ID');
-      formattedDate = formatter.format(date);
-    } catch (e) {
-      formattedDate = "Tanggal tidak valid";
-    }
-    
+    // Menggunakan tanggal yang diterima dari pengumuman
+    String formattedDate = pengumuman['date'] ?? "Tanggal tidak tersedia";
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Pengumuman'),
+        title: const Text(
+          'Detail Pengumuman',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF1565C0),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -52,7 +49,7 @@ class AnnouncementPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Judul
             Text(
               pengumuman['title'],
@@ -63,7 +60,7 @@ class AnnouncementPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            
+
             // Tanggal
             Row(
               children: [
@@ -83,8 +80,8 @@ class AnnouncementPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            
-            // Isi pengumuman dengan link "Selanjutnya" tanpa jarak
+
+            // Link "Selanjutnya" - Warna diubah menjadi hijau
             RichText(
               text: TextSpan(
                 children: [
@@ -96,16 +93,18 @@ class AnnouncementPage extends StatelessWidget {
                     text: 'Selanjutnya',
                     style: const TextStyle(
                       fontSize: 14,
-                      color: Colors.green,
-                      fontStyle: FontStyle.italic,
+                      color: Colors.green, // Diubah dari blue menjadi green
+                      fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
-                    recognizer: TapGestureRecognizer()..onTap = _launchURL,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => _launchURL(pengumuman['url'] ??
+                          'https://portal.sukabumikota.go.id/category/pengumuman/'),
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 30),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SmartLiving extends StatefulWidget {
   const SmartLiving({super.key});
@@ -38,6 +39,18 @@ class _SmartLivingState extends State<SmartLiving> {
       const Color(0xFFB3E5FC); // Light blue for clinic button
   final Color cardContentBg =
       const Color(0xFFE1F5FE); // Even lighter blue for card content
+  // Define the missing playstoreGreen color
+  final Color playstoreGreen = const Color(0xFF00C853);
+
+  // Define the missing _launchURL method
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +101,7 @@ class _SmartLivingState extends State<SmartLiving> {
                       // Add your action here
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: lightBlue,
+                      backgroundColor:  const Color(0xFFE3F2FD),
                       foregroundColor: Colors.black87,
                       elevation: 0,
                       alignment: Alignment.centerLeft,
@@ -115,6 +128,132 @@ class _SmartLivingState extends State<SmartLiving> {
                   itemBuilder: (context, index) {
                     return _buildHospitalCard(hospitals[index]);
                   },
+                ),
+
+                const SizedBox(height: 20),
+
+                // JKN Mobile Section - UPDATED TO MATCH DESIGN
+                // No card container - directly in the column to match page background
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // JKN Mobile Title - Using consistent lightBlue (0xFFB3E5FC)
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE3F2FD),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text(
+                          "JKN Mobile - BPJS Kesehatan",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // JKN Logo and Button Side by Side
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // JKN Logo - slightly larger (120x120)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/Icon_jkn.webp',
+                              width: 110,
+                              height: 110,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          // Only PlayStore button - made smaller
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: InkWell(
+                                onTap: () {
+                                  _launchURL(
+                                      'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id');
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 16),
+                                  decoration: BoxDecoration(
+                                    color:  const Color(0xFFE3F2FD),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      FaIcon(FontAwesomeIcons.googlePlay,
+                                          color: playstoreGreen, size: 15),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        'JKN Mobile',
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // JKN Description - Using consistent lightBlue (0xFFB3E5FC)
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color:  const Color(0xFFE3F2FD),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('• ', style: TextStyle(fontSize: 14)),
+                                Expanded(
+                                  child: Text(
+                                    'aplikasi JKN Mobile berperan penting dalam meningkatkan kualitas hidup masyarakat melalui kemudahan akses layanan kesehatan. Aplikasi ini memungkinkan pengguna untuk mengakses informasi kepesertaan, fasilitas kesehatan, dan administrasi JKN secara digital tanpa harus datang langsung ke kantor BPJS atau rumah sakit.',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('• ', style: TextStyle(fontSize: 14)),
+                                Expanded(
+                                  child: Text(
+                                    'Dengan integrasi layanan kesehatan ke dalam platform digital, JKN Mobile mendukung kehidupan masyarakat yang lebih sehat, efisien, dan nyaman—ciri khas kota pintar yang menempatkan kesejahteraan warganya sebagai prioritas utama.',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

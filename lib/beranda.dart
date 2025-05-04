@@ -39,13 +39,33 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
-  // Daftar pengumuman
-  final Map<String, dynamic> _pengumuman = {
-    'title':
-        'Pengumuman Hasil Asesmen Kompetensi Selter JPTP Sekretariat Daerah',
-    'date': '2024-05-20T11:45:00',
-    'image': 'assets/Icon_pengumuman.jpg',
-  };
+  // Daftar pengumuman dengan 3 item
+  final List<Map<String, dynamic>> _pengumumanList = [
+    {
+      'id': 1,
+      'title':
+          'Pengumuman Jadwal Seleksi Kompetensi CASN PPPK Periode II Tahun 2024 TITIK LOKASI JAKARTA',
+      'date': '2 Mei, 2025',
+      'image': 'assets/Icon_pengumuman.jpg',
+      'url': 'https://portal.sukabumikota.go.id/pengumuman-jadwal-seleksi-kompetensi-casn-pppk-periode-ii-tahun-2024-titik-lokasi-jakarta/',
+    },
+    {
+      'id': 2,
+      'title':
+          'Pengumuman Hasil Akhir Seleksi Terbuka JPTP Sekda Kota Sukabumi Tahun 2025',
+      'date': '2 Mei, 2025',
+      'image': 'assets/Icon_pengumuman.jpg',
+      'url': 'https://portal.sukabumikota.go.id/pengumuman-hasil-akhir-seleksi-terbuka-jptp-sekda-kota-sukabumi-tahun-2025/',
+    },
+    {
+      'id': 3,
+      'title':
+          'Pengumuman Hasil Seleksi Wawancara Selter Sekda Kota Sukabumi',
+      'date': '29 April, 2025',
+      'image': 'assets/Icon_pengumuman.jpg',
+      'url': 'https://portal.sukabumikota.go.id/pengumuman-hasil-seleksi-wawancara-selter-sekda-kota-sukabumi/',
+    },
+  ];
 
   @override
   void initState() {
@@ -224,17 +244,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Format tanggal ke format Indonesia
-  String _formatDate(String dateStr) {
-    try {
-      final date = DateTime.parse(dateStr);
-      final formatter = DateFormat('dd MMMM yyyy', 'id_ID');
-      return formatter.format(date);
-    } catch (e) {
-      return "Tanggal tidak valid";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -398,26 +407,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 16),
 
-            // Bagian Pengumuman
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Pengumuman',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
+            // Bagian Pengumuman - Judul saja tanpa "Lihat Semua"
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+              child: Text(
+                'Pengumuman',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
 
-            // Pengumuman dengan navigasi ke halaman detail
+            // Daftar Pengumuman
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: _buildPengumumanCard(_pengumuman),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: _pengumumanList.map((pengumuman) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: _buildPengumumanCard(pengumuman),
+                  );
+                }).toList(),
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -496,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          _formatDate(pengumuman['date']),
+                          pengumuman['date'],
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,

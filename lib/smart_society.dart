@@ -174,7 +174,7 @@ class _SmartSocietyState extends State<SmartSociety> {
         style: TextStyle(
           color: Colors.black87,
           fontSize: 12,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
@@ -259,7 +259,7 @@ class _SmartSocietyState extends State<SmartSociety> {
                         style: TextStyle(
                           color: Colors.black87,
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],

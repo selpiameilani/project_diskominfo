@@ -38,14 +38,14 @@ class DetailBeranda extends StatefulWidget {
       'url': 'https://portal.sukabumikota.go.id/smart/berita-kota/pendidikan/',
     },
     {
-      'label': 'Mall Pelayanan Publik',
+      'label': 'Mal Pelayanan Publik',
       'image': 'assets/Icon_mpp.png',
       'url': 'https://mpp.sukabumikota.go.id/layanan',
     },
     {
-      'label': 'Satu Data',
-      'image': 'assets/Icon_satudata.png',
-      'url': 'https://satudata.sukabumikota.go.id/',
+      'label': 'Open Data',
+      'image': 'assets/Icon_open.png',
+      'url': 'https://opendata.sukabumikota.go.id/',
     },
     {
       'label': 'PPID',
