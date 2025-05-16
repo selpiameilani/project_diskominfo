@@ -16,14 +16,186 @@ class _SmartLivingState extends State<SmartLiving> {
       'address':
           'Jl. Rumah Sakit No.1, Cikole, Kec. Cikole,\nKota Sukabumi, Jawa Barat 43113',
       'phone': '(0266)225180',
-      'image': 'assets/Icon_RSUD.png',
     },
     {
       'name': 'RSUD Al-Mulk',
       'address':
           'Jl. Pelabuhan II, Lembursitu, Kec. Lembursitu,\nKota Sukabumi, Jawa Barat 43169',
       'phone': '(0266)6220941',
-      'image': 'assets/Icon_Almulk.webp',
+    },
+  ];
+
+  final List<Map<String, dynamic>> healthCenters = [
+    {
+      'name': 'PUSKESMAS SELABATU',
+      'address': 'Jl. Kenari No. 3 Kelurahan Selabatu Kec. Cikole',
+      'phone': '(0266) 229944',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+        'Klinik Sore : Pukul 15.00 s.d. 19.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS SUKABUMI',
+      'address': 'Jl. R.A. Kosasih No. 147 Ciaul, Kota Sukabumi',
+      'phone': '(0266) 6253204',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+        'Klinik Sore : Pukul 15.00 s.d. 19.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS CIPELANG',
+      'address': 'Jl.KH.Ahmad Sanusi No.21 Sukabumi',
+      'phone': '(0266) 225041',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS KARANGTENGAH',
+      'address':
+          'Jalan Tanjung Sari No.14 Kel. Karang Tengah Kec. Gunung Puyuh Kota Sukabumi',
+      'phone': '(0266) 239168',
+      'hours': [
+        'Senin-Kamis/ 07.00-15.00 WIB',
+        'Jum\'at/ 07.00-14.00 WIB',
+        'Sabtu/07.00-10.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS PABUARAN',
+      'address': 'Jln. Pabuaran No. 49 Kel. Nyomplong Kec Warudoyong Sukabumi',
+      'phone': '0266-231890',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS BENTENG',
+      'address':
+          'Jl. Benteng Kidul No.70, Kel. Benteng, Kec. Warudoyong, Kota Sukabumi',
+      'phone': '0266-225219',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS SUKAKARYA',
+      'address': 'Jl. Sukakarya Sukabumi',
+      'phone': '0266-217931',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS GEDONG PANJANG',
+      'address': 'Jl. R.H. Didi Sukardi No. 229 Kota Sukabumi',
+      'phone': '(0266) 211414',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS TIPAR',
+      'address': 'Jl. Pelabuhan 2 Tipar, Citamiang Kota Sukabumi',
+      'phone': '(0266) 222985',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS NANGGELENG',
+      'address':
+          'JL. Pelda Suyatna, 43151, Nanggeleng, kec. citamiang kota sukabumi',
+      'phone': '(0266) 217894',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS BAROS',
+      'address': 'Jl. Baros, Baros, Kota Sukabumi, Jawa Barat 43161',
+      'phone': '(0266) 211040',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+        'Klinik Sore : Pukul 15.00 s.d. 19.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS LEMBURSITU',
+      'address':
+          'Jl.Pelabuan II Km.6 Kelurahan Lembursitu Kecamatan Lembursitu Kota Sukabumi',
+      'phone': '(0266) 231295-2',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS CIKUNDUL',
+      'address': 'Jl. Merdeka No. 291, Kec. Lembur Situ Sukabumi',
+      'phone': '0266-240041',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS LIMUSNUNGGAL',
+      'address': 'Jl. Rawa Belut No.05, Kec. Cibeureum Sukabumi',
+      'phone': ' (0266) 215558',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
+    },
+    {
+      'name': 'PUSKESMAS CIBEUREUM HILIR',
+      'address': 'Jl. Ciandam , Kec. Cibeureum Kota Sukabumi',
+      'phone': ' (0266) 242116',
+      'hours': [
+        'Senin s.d. Kamis Dan Sabtu : Pukul 07.30 s.d. Pukul 14.45 WIB',
+        'Istirahat : Pukul 12.00 s.d. Pukul 13.00 WIB',
+        'Jumat : Pukul 07.30 s.d. Pukul 15.15 WIB',
+        'Istirahat : Pukul 11.30 s.d. Pukul 13.00 WIB',
+      ],
     },
   ];
 
@@ -87,33 +259,93 @@ class _SmartLivingState extends State<SmartLiving> {
 
                 const SizedBox(height: 14),
 
-                // Inovasi Section
                 _buildInnovationHeader("Inovasi"),
 
                 const SizedBox(height: 11),
 
-                // Clinic Services Section - Separate buttons
+                // PSC 119 Sigap Homecare info - Fixed layout to prevent overflow
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add your action here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:  const Color(0xFFE3F2FD),
-                      foregroundColor: Colors.black87,
-                      elevation: 0,
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE3F2FD),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      "klinik Sore dan PSC 119 Sigap Homecare",
-                      style: TextStyle(fontSize: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "PSC 119 Sigap Homecare",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "layanan ambulance kegawatdaruratan medis/emergency bagi masyarakat Kota Sukabumi yang membutuhkan AMBULANCE",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "AMBULAN SIGAP Kota Sukabumi,",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+
+                        const SizedBox(height: 4),
+                        // Menyatukan semua informasi kontak dalam satu baris
+                        Row(
+                          children: [
+                            const Text(
+                              "Call Center: ",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                final Uri uri =
+                                    Uri(scheme: 'tel', path: '08001000119');
+                                if (await canLaunchUrl(uri)) {
+                                  await launchUrl(uri);
+                                }
+                              },
+                              child: const Text(
+                                "0800 1000 119",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "atau: ",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                final Uri uri = Uri(scheme: 'tel', path: '119');
+                                if (await canLaunchUrl(uri)) {
+                                  await launchUrl(uri);
+                                }
+                              },
+                              child: const Text(
+                                "119",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -121,6 +353,10 @@ class _SmartLivingState extends State<SmartLiving> {
                 const SizedBox(height: 14),
 
                 // Hospitals Section
+                _buildInnovationHeader("Klinik sore "),
+
+                const SizedBox(height: 11),
+
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -130,10 +366,17 @@ class _SmartLivingState extends State<SmartLiving> {
                   },
                 ),
 
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: healthCenters.length,
+                  itemBuilder: (context, index) {
+                    return _buildHealthCenterCard(healthCenters[index]);
+                  },
+                ),
+
                 const SizedBox(height: 20),
 
-                // JKN Mobile Section - UPDATED TO MATCH DESIGN
-                // No card container - directly in the column to match page background
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Column(
@@ -189,7 +432,7 @@ class _SmartLivingState extends State<SmartLiving> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 16),
                                   decoration: BoxDecoration(
-                                    color:  const Color(0xFFE3F2FD),
+                                    color: const Color(0xFFE3F2FD),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Row(
@@ -219,7 +462,7 @@ class _SmartLivingState extends State<SmartLiving> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color:  const Color(0xFFE3F2FD),
+                          color: const Color(0xFFE3F2FD),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
@@ -343,17 +586,27 @@ class _SmartLivingState extends State<SmartLiving> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          tilePadding: EdgeInsets.zero,
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Icon(
+              Icons.keyboard_arrow_down,
+              color: Color(0xFF1A5CBE), // Warna biru denim
+            ),
+          ),
+          title: Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
               ),
             ),
             child: Text(
@@ -365,59 +618,226 @@ class _SmartLivingState extends State<SmartLiving> {
               ),
             ),
           ),
-          Container(
-            color: cardContentBg,
-            width: double.infinity,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: hospital['image'] != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              hospital['image']!,
-                              width: 70,
-                              height: 70,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : const Icon(
-                            Icons.local_hospital,
-                            color: Colors.blue,
-                            size: 30,
-                          ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
+          children: [
+            Container(
+              color: cardContentBg,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Address
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Address in format similar to screenshot
-                        Row(
+                        const Text(
+                          'Alamat : ',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            _getFirstLine(hospital['address'] ?? ''),
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Second line of address with padding to align properly
+                    if (_hasSecondLine(hospital['address'] ?? ''))
+                      Padding(
+                        padding: const EdgeInsets.only(left: 46.0),
+                        child: Text(
+                          _getSecondLine(hospital['address'] ?? ''),
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 6),
+                    // Phone number with call functionality
+                    Row(
+                      children: [
+                        const Text(
+                          'Telepon : ',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            final phoneNumber = hospital['phone']
+                                    ?.replaceAll(RegExp(r'[^0-9+]'), '') ??
+                                '+6281234567890';
+                            final Uri uri =
+                                Uri(scheme: 'tel', path: phoneNumber);
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
+                          child: Text(
+                            hospital['phone'] ?? '',
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHealthCenterCard(Map<String, dynamic> healthCenter) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 8),
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          tilePadding: EdgeInsets.zero,
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Icon(
+              Icons.keyboard_arrow_down,
+              color: Color(0xFF1A5CBE), // Warna biru denim
+            ),
+          ),
+          title: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+              ),
+            ),
+            child: Text(
+              healthCenter['name'],
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          children: [
+            Container(
+              color: cardContentBg,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Address
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Alamat : ',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            healthCenter['address'],
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    // Phone
+                    Row(
+                      children: [
+                        const Text(
+                          'Telepon : ',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            final phoneNumber = healthCenter['phone']
+                                    ?.replaceAll(RegExp(r'[^0-9+]'), '') ??
+                                '+6281234567890';
+                            final Uri uri =
+                                Uri(scheme: 'tel', path: phoneNumber);
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
+                          child: Text(
+                            healthCenter['phone'],
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Operating Hours
+                    const Text(
+                      'Jam Operasional: ',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    // List operating hours
+                    ...List.generate(
+                      (healthCenter['hours'] as List).length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.only(left: 12.0, top: 2.0),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Alamat : ',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
+                              '• ',
+                              style: TextStyle(fontSize: 11),
                             ),
                             Expanded(
                               child: Text(
-                                _getFirstLine(hospital['address'] ?? ''),
+                                healthCenter['hours'][index],
                                 style: const TextStyle(
                                   fontSize: 11,
                                   color: Colors.black87,
@@ -426,80 +846,33 @@ class _SmartLivingState extends State<SmartLiving> {
                             ),
                           ],
                         ),
-                        // Second line of address with padding to align properly
-                        if (_hasSecondLine(hospital['address'] ?? ''))
-                          Padding(
-                            padding: const EdgeInsets.only(left: 46.0),
-                            child: Text(
-                              _getSecondLine(hospital['address'] ?? ''),
-                              style: const TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ),
-                        const SizedBox(height: 6),
-                        // Phone number in format similar to screenshot
-                        Row(
-                          children: [
-                            const Text(
-                              'Telepon : ',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                final phoneNumber = hospital['phone']
-                                        ?.replaceAll(RegExp(r'[^0-9+]'), '') ??
-                                    '+6281234567890';
-                                final Uri uri =
-                                    Uri(scheme: 'tel', path: phoneNumber);
-                                if (await canLaunchUrl(uri)) {
-                                  await launchUrl(uri);
-                                }
-                              },
-                              child: Text(
-                                hospital['phone'] ?? '(0266)6220941',
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // Helper methods to split address into two lines
+  // Helper method to get the first line of an address (up to the newline character)
   String _getFirstLine(String address) {
-    if (address.contains('\n')) {
-      return address.split('\n')[0];
-    }
-    return address;
+    final parts = address.split('\n');
+    return parts.isNotEmpty ? parts[0] : address;
   }
 
-  String _getSecondLine(String address) {
-    if (address.contains('\n')) {
-      return address.split('\n')[1];
-    }
-    return '';
-  }
-
+  // Helper method to check if address has a second line
   bool _hasSecondLine(String address) {
-    return address.contains('\n');
+    final parts = address.split('\n');
+    return parts.length > 1;
+  }
+
+  // Helper method to get the second line of an address
+  String _getSecondLine(String address) {
+    final parts = address.split('\n');
+    return parts.length > 1 ? parts[1] : '';
   }
 }

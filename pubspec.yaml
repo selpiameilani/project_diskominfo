@@ -86,6 +86,7 @@ flutter:
     - assets/Icon_mpp.png
     - assets/Icon_open.png
     - assets/Icon_jkn.webp
+    - assets/slide3.jpg
 
 flutter_icons:
   android: true

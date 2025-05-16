@@ -119,7 +119,7 @@ class _QuickIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Lebar tetap untuk memastikan semua ikon sejajar
-    return Container(
+    return SizedBox(
       width: 90,
       child: Column(
         children: [

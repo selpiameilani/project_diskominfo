@@ -189,7 +189,7 @@ class _SmartSocietyState extends State<SmartBranding> {
         // BPBD Logo
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Container(
+          child: SizedBox(
             width: 110,
             height: 110,
             child: Image.asset('assets/Icon_Kabizza.png'),

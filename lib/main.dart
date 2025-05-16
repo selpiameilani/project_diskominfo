@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -291,7 +292,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                       ),
                                       const SizedBox(height: 25),
                                       const Text(
-                                        "Mewujudkan Sukabumi IMAN melalui Smart City",
+                                        "Mewujudkan Sukabumi IMAN (Inovatif, Mandiri, Agamis dan Nasionalis) melalui Smart City",
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontStyle: FontStyle.italic,

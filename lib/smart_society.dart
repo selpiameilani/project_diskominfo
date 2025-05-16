@@ -188,7 +188,7 @@ class _SmartSocietyState extends State<SmartSociety> {
         // BPBD Logo
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Container(
+          child: SizedBox(
             width: 110,
             height: 110,
             // color: Colors.black,

@@ -6,8 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AnnouncementPage extends StatelessWidget {
   final Map<String, dynamic> pengumuman;
 
-  const AnnouncementPage({Key? key, required this.pengumuman})
-      : super(key: key);
+  const AnnouncementPage({super.key, required this.pengumuman});
 
   // Fungsi untuk membuka URL
   Future<void> _launchURL(String url) async {

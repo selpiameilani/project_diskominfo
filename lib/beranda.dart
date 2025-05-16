@@ -37,6 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
       'url': 'https://dinkes.sukabumikota.go.id/',
       'title': 'Dinkes Kota Sukabumi',
     },
+     {
+      'image': 'assets/slide3.jpg',
+      'url': 'https://dinkes.sukabumikota.go.id/beranda',
+      'title': 'Dinkes Kota Sukabumi',
+    },
   ];
 
   // Daftar pengumuman dengan 3 item
@@ -708,9 +713,9 @@ class LayananGridWidget extends StatelessWidget {
         'url': 'https://satusehat.kemkes.go.id/sdmk',
       },
       {
-        'label': 'LPSE',
-        'image': 'assets/Icon_LPSE.jpg',
-        'url': 'http://lpse.jabarprov.go.id/'
+        'label': 'JKN Mobile',
+        'image': 'assets/Icon_jkn.webp',
+        'url': 'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id'
       },
       {
         'label': 'OSS',

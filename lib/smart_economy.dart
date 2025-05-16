@@ -202,7 +202,7 @@ class _SmartSocietyState extends State<SmartEconomy> {
         // BPBD Logo
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Container(
+          child: SizedBox(
             width: 110,
             height: 110,
             child: Image.asset('assets/Icon_SK.png'),
@@ -331,7 +331,7 @@ class _SmartSocietyState extends State<SmartEconomy> {
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Container(
+            child: SizedBox(
               height: 110,
               child: Image.asset(
                 'assets/Icon_culinery.webp',
