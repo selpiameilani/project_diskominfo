@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this import
 import 'detail_beranda.dart';
 import 'footer.dart';
-import 'pengumuman_news.dart';
+import 'beranda_kec.dart';
+import 'beranda_badan.dart';
+import 'beranda_dinas.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,38 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
       'url': 'https://dinkes.sukabumikota.go.id/',
       'title': 'Dinkes Kota Sukabumi',
     },
-     {
+    {
       'image': 'assets/slide3.jpg',
       'url': 'https://dinkes.sukabumikota.go.id/beranda',
       'title': 'Dinkes Kota Sukabumi',
-    },
-  ];
-
-  // Daftar pengumuman dengan 3 item
-  final List<Map<String, dynamic>> _pengumumanList = [
-    {
-      'id': 1,
-      'title':
-          'Pengumuman Jadwal Seleksi Kompetensi CASN PPPK Periode II Tahun 2024 TITIK LOKASI JAKARTA',
-      'date': '2 Mei, 2025',
-      'image': 'assets/Icon_pengumuman.jpg',
-      'url': 'https://portal.sukabumikota.go.id/pengumuman-jadwal-seleksi-kompetensi-casn-pppk-periode-ii-tahun-2024-titik-lokasi-jakarta/',
-    },
-    {
-      'id': 2,
-      'title':
-          'Pengumuman Hasil Akhir Seleksi Terbuka JPTP Sekda Kota Sukabumi Tahun 2025',
-      'date': '2 Mei, 2025',
-      'image': 'assets/Icon_pengumuman.jpg',
-      'url': 'https://portal.sukabumikota.go.id/pengumuman-hasil-akhir-seleksi-terbuka-jptp-sekda-kota-sukabumi-tahun-2025/',
-    },
-    {
-      'id': 3,
-      'title':
-          'Pengumuman Hasil Seleksi Wawancara Selter Sekda Kota Sukabumi',
-      'date': '29 April, 2025',
-      'image': 'assets/Icon_pengumuman.jpg',
-      'url': 'https://portal.sukabumikota.go.id/pengumuman-hasil-seleksi-wawancara-selter-sekda-kota-sukabumi/',
     },
   ];
 
@@ -410,29 +384,10 @@ class _HomeScreenState extends State<HomeScreen> {
             // Grid Layanan
             LayananGridWidget(launchURL: _launchURL),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-            // Bagian Pengumuman - Judul saja tanpa "Lihat Semua"
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
-              child: Text(
-                'Pengumuman',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-
-            // Daftar Pengumuman
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: _pengumumanList.map((pengumuman) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: _buildPengumumanCard(pengumuman),
-                  );
-                }).toList(),
-              ),
-            ),
+            // OPD Section
+            _buildOPDSection(),
 
             const SizedBox(height: 20),
 
@@ -440,88 +395,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const Footer(),
 
             const SizedBox(height: 60),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Widget untuk kartu pengumuman yang bisa diklik
-  Widget _buildPengumumanCard(Map<String, dynamic> pengumuman) {
-    return InkWell(
-      onTap: () {
-        // Navigate to the announcement detail page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AnnouncementPage(pengumuman: pengumuman),
-          ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Gambar pengumuman
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.horizontal(left: Radius.circular(8)),
-              child: Image.asset(
-                pengumuman['image'],
-                height: 80,
-                width: 80,
-                fit: BoxFit.cover,
-              ),
-            ),
-            // Konten pengumuman
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      pengumuman['title'],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          size: 12,
-                          color: Colors.grey,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          pengumuman['date'],
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -662,6 +535,163 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
     );
   }
+
+  // Build OPD Section - MODIFIED TO NAVIGATE TO LOCAL PAGES
+  Widget _buildOPDSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // OPD Title
+          const Text(
+            'Organisasi Perangkat Daerah (OPD)',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // OPD Buttons Row
+          Row(
+            children: [
+              // BADAN Button - Navigate to BerandaBadanPage
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BerandaBadan(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4285F4), // Blue color
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.account_balance,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'BADAN',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              // KECAMATAN Button - Navigate to BerandaKecPage
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BerandaKecPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF6D00), // Orange color
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.location_city,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'KECAMATAN',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 8),
+
+          // DINAS Button - Navigate to BerandaDinasPage
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BerandaDinas(),
+                ),
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                color: const Color(0xFF00C853),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.business,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'DINAS',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class LayananGridWidget extends StatelessWidget {
@@ -715,7 +745,8 @@ class LayananGridWidget extends StatelessWidget {
       {
         'label': 'JKN Mobile',
         'image': 'assets/Icon_jkn.webp',
-        'url': 'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id'
+        'url':
+            'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id'
       },
       {
         'label': 'OSS',

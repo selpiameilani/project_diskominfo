@@ -87,6 +87,19 @@ flutter:
     - assets/Icon_open.png
     - assets/Icon_jkn.webp
     - assets/slide3.jpg
+    - assets/Icon_Baros.webp
+    - assets/Icon_ctaming.JPG
+    - assets/Icon_gnpyh.png
+    - assets/Icon_disnkr.png
+    - assets/Icon_dinkes.png
+    - assets/Icon_dishub.jpg
+    - assets/Icon_dinkes.png
+    - assets/Icon_dkp3.png
+    - assets/Icon_bkpsdm.png
+    - assets/iCON_BPKBD.jpg
+    - assets/Icon_kesbng.jpg
+    - assets/Icon_Bappeda.png
+    - assets/Icon_disduk.png
 
 flutter_icons:
   android: true
